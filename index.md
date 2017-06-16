@@ -24,7 +24,6 @@ title: Optical Linear Sensor
     
 
 <link rel="stylesheet" href="./stylesheets/color-block.css">
-<script src="./javascripts/colorize.js"></script>
 
 <style>
  .text-block {
