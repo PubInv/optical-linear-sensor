@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="./images/favicon.ico">
+
+    <title>{{ site.projecttitle }}</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap theme -->
+    <link href="bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
+
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <!-- Make sure to include these modifications after Bootstrap -->    
+    <link rel="stylesheet" type="text/css" href="stylesheets/toc-layout.css">    
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+      <![endif]-->
+    
+  <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="javascripts/jquery.tableofcontents.js" type="text/javascript" charset="utf-8"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <!--    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script> -->
+    
+    <script type="text/javascript" charset="utf-8"></script>
+    
+        <link rel="stylesheet" href="./jquery-ui-1.11.4.custom/jquery-ui.min.css">
+    <link rel="stylesheet" href="./jquery-ui-1.11.4.custom/jquery-ui.structure.min.css">    
+    <link rel="stylesheet" href="./jquery-ui-1.11.4.custom/jquery-ui.theme.min.css">
+
+    <script src="./jquery-ui-1.11.4.custom/jquery-ui.js"></script>
+
+    
+  </head>
+
+  <style>
+    
+#table-wrapper {
+  position:relative;
+}
+#table-scroll {
+  height:100%;
+  overflow:auto;  
+  margin-top:20px;
+}
+#table-wrapper table {
+  width:100%;
+
+}
+#table-wrapper table * {
+  color:black;
+}
+#table-wrapper table thead th .text {
+  position:absolute;   
+  top:-20px;
+  z-index:2;
+  height:20px;
+  width:35%;
+  border:1px solid red;
+}
+
+.newtrace {
+    color: red;
+    font-size: large;
+    background-color: yellow;
+}
+    </style>
+
+
+  <body>
+
+    {% include header.html %}
+      <div class="inner clearfix">
+        <section id="main-content">
+	  {{ content }}
+	  {% include sub-footer.html %}
+
+        </section>
+
+
+      </div>
+
+
+    {% include footer.html %}
+
+
+  
+  
+
+  
+</script>
+  </body>
+</html>
+
+
