@@ -72,15 +72,6 @@ Possibly obtaining greater performance in other ways
 
 <p>Check out our parent project, <a href="https://pubinv.github.io/PubInv">Public Invention</a>.</p>
 
-<script>
-      
-$("#textarea").val(ozymandias);
-render();
-
-var alphabet = "AaBbCcDdEeFfHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz";
-$("#alphabet-text").html(alphabet);
-$("#alphabet").html(colorize(alphabet));
-</script>
 
   
 
