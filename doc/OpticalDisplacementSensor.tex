@@ -279,7 +279,7 @@
 % caption.sty with its "caption=false" package option. This is will preserve
 % IEEEtran.cls handing of captions. Version 1.3 (2005/06/28) and later 
 % (recommended due to many improvements over 1.2) of subfig.sty supports
-% the caption=false option directly:
+% the caption=false option directly:\rul{
 %\usepackage[caption=false,font=footnotesize]{subfig}
 %
 % The latest version and documentation can be obtained at:
@@ -330,7 +330,7 @@
 
 % *** PDF, URL AND HYPERLINK PACKAGES ***
 %
-%\usepackage{url}
+\usepackage{url}
 % url.sty was written by Donald Arseneau. It provides better support for
 % handling and breaking URLs. url.sty is already installed on most LaTeX
 % systems. The latest version can be obtained at:
@@ -415,7 +415,24 @@ Email: {\tt read.robert@gmail.com}} \\
 
 \begin{abstract}
 %\boldmath
-Displacement sensors measure the change in position of a physical object attached to the sensor. Instruments, such as linear slide potentiometers are inexpensive and robust when such a physical connection is not a problem or even an advantage. However, the currently manufactured slide potentiometers offer only a limited number of size and range choices. Driven by the need to allow arbitrary ranges of displacements and to scale to larger and smaller displacements, we experimented with a simple, inexpensive approach using LEDs and light sensors in a 3D printed chamber. When calibrated in software, the resulting system seems a practical, inexpensive approach to producing displacements sensors of scales larger than and smaller than 10 cm.
+Displacement sensors measure the change in position of a physical
+object attached to the sensor\cite{Mraz,LVDT}. Instruments, such as linear slide
+potentiometers, are inexpensive and robust when such a physical
+connection is not a problem or even an advantage. However, the
+currently manufactured slide potentiometers offer only a limited
+number of size and range choices. Driven by the need to allow
+arbitrary ranges of displacements and to scale to larger and smaller
+displacements, we experimented with a simple, inexpensive approach
+using LEDs and light sensors in a 3D printed chamber. The measured analog
+light intensity is not linear with distance, but in a modern
+system where it is likely to be digitized into a microcontroller, it is
+easily calibrated.
+The resulting system seems a practical, inexpensive
+approach to producing displacements sensors of scales both significantly larger than and
+smaller than 10 cm. However, it is not clear that it offers any advantage over
+recently developed time-of-flight distance sensors enclosed in a similar housing.
+A YouTube video\cite{DemoVideo} explains and demonstrates
+this work \url{https://www.youtube.com/watch?v=mArdBpymk8I}.
 \end{abstract}
 % IEEEtran.cls defaults to using nonbold math in the Abstract.
 % This preserves the distinction between vectors and scalars. However,
@@ -427,7 +444,7 @@ Displacement sensors measure the change in position of a physical object attache
 % no keywords
 
 \begin{IEEEkeywords}
-Anything; Something; Everything else.%
+linear variable displacement sensor, 3D printing, LED.%
 \end{IEEEkeywords}
 
 
@@ -447,19 +464,46 @@ Anything; Something; Everything else.%
 
 \subsection{Motivation}
 
-This research grew out of our need to make small sensors of specific sizes which we were unable to easily source.  We are in fact building a net or framework rods which can change their length. This is a “puppet” or “waldo” controller for a larger robot in the same geometry, constructed out of linear actuators. The resulting waldo can be manipulated by hand to cause a corresponding motion in the larger robot. It is like playing with a doll or action figure, to effect a realistic motion.
+This research grew out of our need to make small sensors of specific
+sizes which we were unable to easily source.  We are in fact building
+a net or framework rods which can change their length. This is a
+“puppet” or “waldo” controller for a larger robot in the same
+geometry, constructed out of linear actuators. The resulting waldo can
+be manipulated by hand to cause a corresponding motion in the larger
+robot. It is like playing with a doll or action figure, to effect a
+realistic motion.
 
-Ideally, we would be able to construct this “waldo” out of sliding rods that can change their length in any size that we desire. Since we combine the joints using a special joint, the Kwon-Song-Kim joint, that can only be created by 3D printing, it is natural for us to seek a 3D printable solution, even though of course in a perfect world one might order a sensor of any size that could be manufactured with a wide variety of techniques.
+Ideally, we would be able to construct this “waldo” out of sliding
+rods that can change their length in any size that we desire. Since we
+combine the joints using a special joint, the Kwon-Song-Kim joint,
+that can only be created by 3D printing, it is natural for us to seek
+a 3D printable solution, even though of course in a perfect world one
+might order a sensor of any size that could be manufactured with a
+wide variety of techniques.
 
 
 \subsection{Mechanism}
 
-In open space, the intensity of light falling on a sensor is inversely proportional to the square of the distance travelled between the source and sensor. When encased in a tube, some fraction of the light is reflected off the walls of the tube, so the light reaching the sensor is does not have a simple mathematical relationship with displacement. However, it is monotone---the light intensity decreases smoothly with increasing displacement, even if the rate of decrease is not easily predictable. Since we always intended to read our sensor value with a microcontroller such as an Arduino, it is simple to perform calibration in software. By using a simple light-and-sensor mechanism in a sliding cylinder with a reflective piston, we construct a displacement sensor with few limits on scaling up or scaling down. By putting the sensor and the light at the same end, we simplify the wiring, although this requires a reflection of the light.
+In open space, the intensity of light falling on a sensor is inversely
+proportional to the square of the distance travelled between the
+source and sensor. 
+When encased in a tube, some fraction of the light
+is reflected off the walls of the tube. Since much of this light occurs at the a low
+grazaing angle, the reflectance will be high no matter what material is used for the tube.
+The light reaching the
+sensor is does not have a simple mathematical relationship with
+displacement.  However, it is monotone---the light intensity decreases
+smoothly with increasing displacement, even if the rate of decrease is
+not easily predictable. Since we always intended to read our sensor
+value with a microcontroller such as an Arduino, it is simple to
+perform calibration in software. By using a simple light-and-sensor
+mechanism in a sliding cylinder with a reflective piston, we construct
+a displacement sensor with few limits on scaling up or scaling
+down. By putting the sensor and the light at the same end, we simplify
+the wiring, although this requires a reflection of the light.
 
 
 \section{Construction of the Sensor}
-
-We started by gathering the basic materials needed to make the sensor operational. An Arduino Uno microcontroller for its analog to digital converter, an LED as a light source, and a CdS cell for light detection,such as comes with the Arduino Experimenter’s Kit (ARDX) from Adafruit. First, the LED and CdS cell were physically measured and created in AutoDesk Inventor. Then a housing unit was created for the LED and CdS cell with a baffle to separate them so that the LEd did not directly shine on the Cds cell. A piston and cylinder were created to for the housing. Tolerances were checked for the CAD model and then the models were 3D printed. We powered the CdS at 5V and the LED at 3.3V using the Arduino Uno. A resistor was added to the LED circuit to prevent it burning out. The CdS cell was voltage was read by the analog input of the Uno. This procedure was repeated for a smaller version of the sensor as well. In theory the cylinder size can be parametrically controlled to a large number of physical lengths and even diameters.
 
 \begin{figure}
   \centering
@@ -479,66 +523,171 @@ We started by gathering the basic materials needed to make the sensor operationa
   \caption{Expanded View}  
 \end{figure}
 
+We started by gathering the basic materials needed to make the sensor
+operational. An Arduino Uno microcontroller for its analog to digital
+converter, an LED as a light source, and a CdS cell for light
+detection,such as comes with the Arduino Experimenter’s Kit (ARDX)
+from Adafruit. First, the LED and CdS cell were physically measured
+and created in AutoDesk Inventor. Then a housing unit was created for
+the LED and CdS cell with a baffle to separate them so that the LEd
+did not directly shine on the Cds cell. A piston and cylinder were
+created to for the housing. Tolerances were checked for the CAD model
+and then the models were 3D printed. We powered the CdS at 5V and the
+LED at 3.3V using the Arduino Uno. A resistor was added to the LED
+circuit to prevent it burning out. The CdS cell was voltage was read
+by the analog input of the Uno. This procedure was repeated for a
+smaller version of the sensor as well. In theory the cylinder size can
+be parametrically controlled to a large number of physical lengths and
+even diameters.
+
+
 
 \section{Electrical Performance}
 
-The charts below show the measured voltage at the CdS cell based on physical change in the displacement of the piston within the cylinder. Initially, we performed a regression analysis, but it soon became clear that digital calibration would be preferred. There was in all cases a smooth monotone relationship between output signal voltage and the position of the piston as seen in the diagrams below. 
+The charts below show the measured voltage at the CdS cell based on
+physical change in the displacement of the piston within the
+cylinder. Initially, we performed a regression analysis, but it soon
+became clear that digital calibration would be preferred. There was in
+all cases a smooth monotone relationship between output signal voltage
+and the position of the piston as seen in the diagrams below.
 
-Each plot plots the linear displacement as the vertical (Y) axis. In the large sensor this is measured in centimeters. The horizontal line is the digital read of the analog input returned by the Uno, on a scale of 0 to 1023, which is in fact proportional to the voltage via the formula: V = (input * 1000 milivolts)/ 5 = input * 200 millivolts. An digital read of 1000 corresponds to 5V. In the case of the smaller sensor, the scale of displacement is measured in mm.
+Each plot plots the linear displacement as the vertical (Y) axis. In
+the large sensor this is measured in centimeters. The horizontal line
+is the digital read of the analog input returned by the Uno, on a
+scale of 0 to 1023, which is in fact proportional to the voltage via
+the formula: V = (input * 1000 milivolts)/ 5 = input * 200
+millivolts. An digital read of 1000 corresponds to 5V. In the case of
+the smaller sensor, the scale of displacement is measured in mm.
 
-Observe that using a aluminum foil as the reflector in the large model “linearized” the curve and allowed better separation of values at large displacements of 15 cm or more.
+Observe that using a aluminum foil as the reflector in the large model
+“linearized” the curve and allowed better separation of values at
+large displacements of 15 cm or more.
 
-Note that this depends on the bore diameter, the reflectance of the piston head, the kind of LED and CDS cell, as well as the input voltage.
+Note that this depends on the bore diameter, the reflectance of the
+piston head, the kind of LED and CDS cell, as well as the input
+voltage.
 
 \section{Digital Calibration}
+
+
+Because the voltage produced by the optical linear sensor is in the
+common ranges of 0-5V, it is easy to digitize the signal with a
+standard Analog-to-Digital converter or common hobbyist
+microcontrollers, such as the Arduino. Although some sensors are
+carefully designed to allow a directly meaningful voltage level to be
+output, we assumed that in most cases our sensors would be used by a
+microcontroller anyway.
+
+
+\begin{figure}
+  \centering
+  \includegraphics[width=2.5in]{figures/FritzingSetup.png}
+  \caption{Basic Arduino Experimental Setup}  
+\end{figure}
+
+
+The procedure was to wire the LED, photocell, and resistor to the
+Arduino. A simple Arduino script was used to sample the photocell’s
+voltage divider once every second. The ADC value from the serial
+output of the Arduino was recorded for every 1 centimeter from 0 cm to
+26 cm.
+
+The results of the experiment were recorded in an excel sheet. Since
+the Arduino uses a 12 bit ADC, the output of the serial reading range
+from 0 to 1023. The equation [(measurement)/1023 * 5] was used to map
+the ADC value to a voltage.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=2.5in]{figures/MiniDistanceVsRead.png}
+  \caption{Mini Sensor White Tip Distance vs. Digital Range (note units of Vertical Axis are mm)}  
+\end{figure}
 
 \begin{figure}
   \centering
   \includegraphics[width=2.5in]{figures/WhiteLargeDistanceVsRead.png}
-  \caption{Large Sensor White Tip Distance vs. Voltage}  
+  \caption{Large Sensor White Tip Distance vs. Digital Range}  
 \end{figure}
 
 \begin{figure}
   \centering
   \includegraphics[width=2.5in]{figures/AluminumLargeFoil.png}
-  \caption{Large Sensor Aluminum Tip Distance vs. Voltage}  
+  \caption{Large Sensor Aluminum Tip Distance vs. Digital Range}  
 \end{figure}
 
 \begin{figure}
   \centering
   \includegraphics[width=2.5in]{figures/MiniDistanceVsRead.png}
-  \caption{Mini Sensor White Tip Distance vs. Voltage}  
+  \caption{Mini Sensor White Tip Distance vs. Digital Range}  
 \end{figure}
 
-
-Because the voltage produced by the optical linear sensor is in the common ranges of 0-5V, it is easy to digitize the signal with a standard Analog-to-Digital converter or common hobbyist microcontrollers, such as the Arduino. Although some sensors are carefully designed to allow a directly meaningful voltage level to be output, we assumed that in most cases our sensors would be used by a microcontroller anyway.
-
-The procedure was to wire the LED, photocell, and resistor to the Arduino. A simple Arduino script was used to sample the photocell’s voltage divider once every second. The ADC value from the serial output of the Arduino was recorded for every 1 centimeter from 0 cm to 26 cm.
-
-The results of the experiment were recorded in an excel sheet. Since the Arduino uses a 12 bit ADC, the output of the serial reading range from 0 to 1023. The equation [(measurement)/1023 * 5] was used to map the ADC value to a voltage. 
-
-We have produced Arduino code that performs a simple linear interpolation of data points recorded by hand. The code is available in our GitHub repo: (https://github.com/PubInv/optical-linear-sensor) under the GNU Public License.
+We have produced Arduino code that performs a simple linear
+interpolation of data points recorded by hand. The code is available
+in our GitHub repo\url{https://github.com/PubInv/optical-linear-sensor}\cite{SourceCode}
+under the GNU Public License. 
 
 \section{Future Work}
 
-This paper explains how to make a calibratable displacement sensor using light intensity as its fundamental mechanism.  
+This paper explains how to make a calibratable displacement sensor
+using light intensity as its fundamental mechanism.
 
-A number of interesting improvements are in theory possible. Perhaps the best, since we are already using 3D printing, is to attempt to create a “digital” displacement 
+This work provides a solution similar to time-of-flight\cite{TimeOfFlight} sensors enclosed in
+a tube. The highest priority for future work is to determine if there are any circumstances
+where the light intensity solution is better than a time-of-flight solution.
+Although the system described here is slightly less expensive, this would only
+be important in a situation where many sensors are being deployed. Possibly the light intensity
+system could work with smaller systems that the time-of-flight system can support.
 
+A number of interesting improvements are in theory possible. Perhaps
+the best, since we are already using 3D printing, is to attempt to
+create a “digital” displacement
 
-From this baseline concept of having light as a means of detecting distance, many directions can be taken to improve upon or modify the design for future iterations of the sensor. For instance, in order to decrease the overall footprint of the device, fiber optics could be used to transmit light into a smaller tube rather than having the led taking up space in the tube itself. This would make the circumference of the tube smaller, potentially opening the device to other applications. 
+From this baseline concept of having light as a means of detecting
+distance, many directions can be taken to improve upon or modify the
+design for future iterations of the sensor. For instance, in order to
+decrease the overall footprint of the device, fiber optics could be
+used to transmit light into a smaller tube rather than having the led
+taking up space in the tube itself. This would make the circumference
+of the tube smaller, potentially opening the device to other
+applications.
 
-Also, there is potential to make the system digital by changing the geometry of the inside of the tube. Instead of having a hollow tube, chambers and cavities could be made to “catch” the light at a precise distance. This would carry on for multiple intervals and in theory when the light hits one of the cavities there would be a sharp drop in reflectivity and the photocell would be able to detect the change in intensity and distance. 
+Also, there is potential to make the system digital by changing the
+geometry of the inside of the tube. Instead of having a hollow tube,
+chambers and cavities could be made to “catch” the light at a precise
+distance. This would carry on for multiple intervals and in theory
+when the light hits one of the cavities there would be a sharp drop in
+reflectivity and the photocell would be able to detect the change in
+intensity and distance.
 
-There are many more directions that could be taken with the optical linear sensor concept and with each modification, a different use for the device could be discovered.
+There are many more directions that could be taken with the optical
+linear sensor concept and with each modification, a different use for
+the device could be discovered.
 
 
 \section{Conclusion}
 
-This paper describes a means of constructing linear position sensors of widely-varying (human-scale) size with 3D printing and cheap electronics components. This invention is released under a Creative Commons license. Because it does not use physical contact as in most pressure sensors or linear potentiometers, it may have advantages in reliability. Because it utilizes only inexpensive electronic components, it may be constructed for a custom length easily via 3D printing or custom cylinder construction by anyone with hobby-level skills. Additionally, we invite other researchers to improve upon this design, as outlined in Future Work.
+This paper describes a means of constructing linear position sensors
+of widely-varying (human-scale) size with 3D printing and cheap
+electronics components. This invention is released under a Creative
+Commons license. Because it does not use physical contact as in most
+pressure sensors or linear potentiometers, it may have advantages in
+reliability. Because it utilizes only inexpensive electronic
+components, it may be constructed for a custom length easily via 3D
+printing or custom cylinder construction by anyone with hobby-level
+skills. It remains an open question, however, if there is any
+situation in which a light-intenstiy sensor is better than a time-of-flight sensor.
+Additionally, we invite other researchers to improve upon this
+design, as outlined in Future Work.
 
 
+\section{To Dos}
 
+\begin{itemize}
+\item Figure out some kind bibliography
+\item Redo the diagrams with more consistent captions (use mm everywhere)
+\item Make diagrams sharper by removing marginal materials (not axes and labels)
+\item Include photograph
+\end{itemize}
 
 
 
@@ -668,10 +817,11 @@ This paper describes a means of constructing linear position sensors of widely-v
 %
 
 \bibliographystyle{IEEEtran}
-\bibliography{bibtemplate_samples}
+\bibliography{OpticalDisplacementSensor}
 
 % that's all folks
 \end{document}
+
 http://eprints.cs.vt.edu/archive/00000192/01/TR-90-10.pdf
 
 
