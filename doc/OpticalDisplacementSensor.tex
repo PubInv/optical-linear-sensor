@@ -466,12 +466,12 @@ linear variable displacement sensor, 3D printing, LED.%
 
 This research grew out of our need to make small sensors of specific
 sizes which we were unable to easily source.  We are in fact building
-a net or framework rods which can change their length. This is a
-“puppet” or “waldo” controller for a larger robot in the same
-geometry, constructed out of linear actuators. The resulting waldo can
-be manipulated by hand to cause a corresponding motion in the larger
-robot. It is like playing with a doll or action figure, to effect a
-realistic motion.
+a robot as a network or framework of actuators--rods which can change their length.
+Our controller for this larger robot is a
+“puppet” or “waldo” constructed from linear variable displacement sensors in the same
+geometry. The resulting waldo can
+be manipulated by hand to cause a corresponding, isomorphic change in the larger
+robot.
 
 Ideally, we would be able to construct this “waldo” out of sliding
 rods that can change their length in any size that we desire. Since we
@@ -501,7 +501,9 @@ mechanism in a sliding cylinder with a reflective piston, we construct
 a displacement sensor with few limits on scaling up or scaling
 down. By putting the sensor and the light at the same end, we simplify
 the wiring, although this requires a reflection of the light.
-
+If the light were reflected from a mirror to a sensor near the light source
+in free space (not contained within a tube), the intensity would be proportional
+to the inverse of the fourth power of the distance.
 
 \section{Construction of the Sensor}
 
@@ -523,18 +525,19 @@ the wiring, although this requires a reflection of the light.
   \caption{Expanded View}  
 \end{figure}
 
-We started by gathering the basic materials needed to make the sensor
-operational. An Arduino Uno microcontroller for its analog to digital
-converter, an LED as a light source, and a CdS cell for light
-detection,such as comes with the Arduino Experimenter’s Kit (ARDX)
-from Adafruit. First, the LED and CdS cell were physically measured
-and created in AutoDesk Inventor. Then a housing unit was created for
-the LED and CdS cell with a baffle to separate them so that the LEd
-did not directly shine on the Cds cell. A piston and cylinder were
-created to for the housing. Tolerances were checked for the CAD model
+We used basic materials that came with the Arduino Experimenter’s Kit (ARDX)
+from Adafruit\cite{ARDX}: an Arduino Uno microcontroller (which has an  analog to digital
+converter), an LED as a light source, and a CdS cell for light
+detection.
+We physically measured the LED and CdS cell
+and created them in AutoDesk Inventor.
+Then a housing unit was created for
+the LED and CdS cell with a baffle to separate them so that the LED
+did not directly shine on the CdS cell. A piston and cylinder (as separate pieces)
+were created to for the housing. Tolerances were checked for the CAD model
 and then the models were 3D printed. We powered the CdS at 5V and the
 LED at 3.3V using the Arduino Uno. A resistor was added to the LED
-circuit to prevent it burning out. The CdS cell was voltage was read
+circuit to prevent it burning out. The CdS cell voltage was read and digitized
 by the analog input of the Uno. This procedure was repeated for a
 smaller version of the sensor as well. In theory the cylinder size can
 be parametrically controlled to a large number of physical lengths and
@@ -543,6 +546,12 @@ even diameters.
 
 
 \section{Electrical Performance}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=2.5in]{figures/FritzingSetup.png}
+  \caption{Basic Arduino Experimental Setup}  
+\end{figure}
 
 The charts below show the measured voltage at the CdS cell based on
 physical change in the displacement of the piston within the
@@ -563,39 +572,12 @@ Observe that using a aluminum foil as the reflector in the large model
 “linearized” the curve and allowed better separation of values at
 large displacements of 15 cm or more.
 
-Note that this depends on the bore diameter, the reflectance of the
+Note that the voltage depends on the bore diameter, the reflectance of the
 piston head, the kind of LED and CDS cell, as well as the input
-voltage.
+voltages.
 
 \section{Digital Calibration}
 
-
-Because the voltage produced by the optical linear sensor is in the
-common ranges of 0-5V, it is easy to digitize the signal with a
-standard Analog-to-Digital converter or common hobbyist
-microcontrollers, such as the Arduino. Although some sensors are
-carefully designed to allow a directly meaningful voltage level to be
-output, we assumed that in most cases our sensors would be used by a
-microcontroller anyway.
-
-
-\begin{figure}
-  \centering
-  \includegraphics[width=2.5in]{figures/FritzingSetup.png}
-  \caption{Basic Arduino Experimental Setup}  
-\end{figure}
-
-
-The procedure was to wire the LED, photocell, and resistor to the
-Arduino. A simple Arduino script was used to sample the photocell’s
-voltage divider once every second. The ADC value from the serial
-output of the Arduino was recorded for every 1 centimeter from 0 cm to
-26 cm.
-
-The results of the experiment were recorded in an excel sheet. Since
-the Arduino uses a 12 bit ADC, the output of the serial reading range
-from 0 to 1023. The equation [(measurement)/1023 * 5] was used to map
-the ADC value to a voltage.
 
 \begin{figure}
   \centering
@@ -615,11 +597,25 @@ the ADC value to a voltage.
   \caption{Large Sensor Aluminum Tip Distance vs. Digital Range}  
 \end{figure}
 
-\begin{figure}
-  \centering
-  \includegraphics[width=2.5in]{figures/MiniDistanceVsRead.png}
-  \caption{Mini Sensor White Tip Distance vs. Digital Range}  
-\end{figure}
+
+Because the voltage produced by the optical linear sensor is in the
+common ranges of 0-5V, it is easy to digitize the signal with a
+standard Analog-to-Digital converter or common hobbyist
+microcontrollers, such as the Arduino. Although some sensors are
+carefully designed to allow a directly meaningful voltage level to be
+output, we assumed that in most cases our sensors would be used by a
+microcontroller anyway.
+
+
+The procedure was to wire the LED, photocell, and resistor to the
+Arduino. A simple Arduino script was used to sample the photocell’s
+voltage divider once every second. The ADC value from the serial
+output of the Arduino was recorded for every 1 centimeter from 0 cm to
+26 cm.
+
+The results of the experiment were recorded in an excel sheet. Since
+the Arduino uses a 12 bit ADC, the output of the serial reading range
+from 0 to 1023. 
 
 We have produced Arduino code that performs a simple linear
 interpolation of data points recorded by hand. The code is available
@@ -634,13 +630,10 @@ using light intensity as its fundamental mechanism.
 This work provides a solution similar to time-of-flight\cite{TimeOfFlight} sensors enclosed in
 a tube. The highest priority for future work is to determine if there are any circumstances
 where the light intensity solution is better than a time-of-flight solution.
-Although the system described here is slightly less expensive, this would only
+Although the system described here is slightly less expensive, this cost would only
 be important in a situation where many sensors are being deployed. Possibly the light intensity
 system could work with smaller systems that the time-of-flight system can support.
 
-A number of interesting improvements are in theory possible. Perhaps
-the best, since we are already using 3D printing, is to attempt to
-create a “digital” displacement
 
 From this baseline concept of having light as a means of detecting
 distance, many directions can be taken to improve upon or modify the
@@ -651,8 +644,10 @@ taking up space in the tube itself. This would make the circumference
 of the tube smaller, potentially opening the device to other
 applications.
 
-Also, there is potential to make the system digital by changing the
-geometry of the inside of the tube. Instead of having a hollow tube,
+We believe the most interesting idea is to attempt to
+create a “digital” displacement 
+by creating a digital geometry inside the cylinder.
+Instead of having a hollow tube,
 chambers and cavities could be made to “catch” the light at a precise
 distance. This would carry on for multiple intervals and in theory
 when the light hits one of the cavities there would be a sharp drop in
@@ -678,17 +673,6 @@ skills. It remains an open question, however, if there is any
 situation in which a light-intenstiy sensor is better than a time-of-flight sensor.
 Additionally, we invite other researchers to improve upon this
 design, as outlined in Future Work.
-
-
-\section{To Dos}
-
-\begin{itemize}
-\item Figure out some kind bibliography
-\item Redo the diagrams with more consistent captions (use mm everywhere)
-\item Make diagrams sharper by removing marginal materials (not axes and labels)
-\item Include photograph
-\end{itemize}
-
 
 
 % An example of a floating figure using the graphicx package.
